@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Biblioteca {
 	private static final Biblioteca instance = new Biblioteca();
-	private Collection<Libro> libros = new ArrayList<Libro>();
+	private List<Libro> libros = new ArrayList<Libro>();
 	private int id = 0;
 
 	public Biblioteca() {
@@ -34,15 +34,46 @@ public class Biblioteca {
 	public void agregarLibro(String titulo, String autor) {
 		this.libros.add(new Libro(this.id++, titulo, autor));
 	}
+	
+	public void actualizarLibro(Libro actualizado) {
+		this.libros.set(indiceDe(actualizado.getId()), actualizado);
+	}
 
-	public List<Libro> buscar(String titulo) {
+	protected int indiceDe(int idLibro) {
+		int i = 0;
+		for (Libro libro : this.libros) {
+			if (libro.getId() == idLibro) {
+				return i;
+			}
+		}
+		throw new RuntimeException("No existe el libro con id '" + idLibro + "'");
+	}
+
+	public List<Libro> buscarPorTitulo(String titulo) {
 		List<Libro> seleccionDeLibros = new ArrayList<Libro>();
 		for (Libro libro : this.libros) {
-			if (libro.getTitulo().contains(titulo)) {
+			if (contiene(libro.getTitulo(), titulo)) {
 				seleccionDeLibros.add(libro);
 			}
 		}
 		return seleccionDeLibros;
+	}
+	
+	public List<Libro> buscar(String criterio) {
+		List<Libro> seleccionDeLibros = new ArrayList<Libro>();
+		for (Libro libro : this.libros) {
+			if (contiene(libro.getTitulo(), criterio) || contiene(libro.getAutor(), criterio)) {
+				seleccionDeLibros.add(libro);
+			}
+		}
+		return seleccionDeLibros;
+	}
+	
+	/**
+	 * Compara si un string contiene a otro, no importa el case.
+	 */
+	public static boolean contiene(String uno, String otro) {
+		return uno.toLowerCase().contains(otro.toLowerCase());
 	}
 
 	public Libro getLibro(int id) {
