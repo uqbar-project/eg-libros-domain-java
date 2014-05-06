@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.uqbar.commons.model.UserException;
+
 
 public class Biblioteca {
 	private static final Biblioteca instance = new Biblioteca();
@@ -31,8 +33,10 @@ public class Biblioteca {
 		return instance;
 	}
 
-	public void agregarLibro(String titulo, String autor) {
-		this.libros.add(new Libro(this.id++, titulo, autor));
+	public Libro agregarLibro(String titulo, String autor) {
+		Libro libro = new Libro(this.id++, titulo, autor);
+		this.libros.add(libro);
+		return libro;
 	}
 	
 	public void actualizarLibro(Libro actualizado) {
@@ -46,7 +50,7 @@ public class Biblioteca {
 				return i;
 			}
 		}
-		throw new RuntimeException("No existe el libro con id '" + idLibro + "'");
+		throw new UserException("No existe el libro con id '" + idLibro + "'");
 	}
 
 	public List<Libro> buscarPorTitulo(String titulo) {
@@ -82,7 +86,7 @@ public class Biblioteca {
 				return libro;
 			}
 		}
-		throw new RuntimeException("No tengo ese libro, man. (el del id = " + id + ")");
+		throw new UserException("No tengo ese libro, man. (el del id = " + id + ")");
 	}
 	
 	public void eliminarLibro(int id) {

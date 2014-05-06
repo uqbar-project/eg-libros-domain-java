@@ -1,9 +1,16 @@
 package uqbar.libros.domain;
 
+import org.apache.commons.lang.StringUtils;
+import org.uqbar.commons.model.UserException;
+
+/**
+ * 
+ * @author jfernandes
+ */
 public class Libro {
+	private int id;
 	private String titulo;
 	private String autor;
-	private int id;
 
 	public Libro(int id, String titulo, String autor) {
 		this.id = id;
@@ -14,6 +21,10 @@ public class Libro {
 	// solo para Json.fromObject (backend en play)
 	public Libro() {
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	public String getTitulo() {
 		return this.titulo;
@@ -22,8 +33,14 @@ public class Libro {
 	public String getAutor() {
 		return this.autor;
 	}
-
-	public int getId() {
-		return this.id;
+	
+	public void validar() {
+		assertNotEmpty(this.titulo, "Titulo es requerido");
+		assertNotEmpty(this.autor, "Autor es requerido");
 	}
+
+	protected static void assertNotEmpty(String fieldValue, String message) {
+		if (StringUtils.isEmpty(fieldValue)) throw new UserException(message);
+	}
+	
 }
