@@ -7,9 +7,9 @@
   <description>Busqueda de libros / dominio compartido para todos los proyectos</description>
   
   <parent>
-  	<groupId>uqbar</groupId>
-  	<artifactId>uqbar-parent-project</artifactId>
-  	<version>1.4</version>
+	<groupId>org.uqbar-project</groupId>
+        <artifactId>uqbar-parent-project</artifactId>
+        <version>1.8-SNAPSHOT</version>
   </parent>
   
   <dependencies>
