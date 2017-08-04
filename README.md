@@ -1,5 +1,7 @@
 # Búsqueda de libros
 
+[![Build Status](https://travis-ci.org/uqbar-project/eg-libros-domain-java.svg?branch=master)](https://travis-ci.org/uqbar-project/eg-libros-domain-java)
+
 Proyecto que contiene el dominio de un buscado de libros, reutilizado como componente por otras aplicaciones de UI.
 
 # Dónde se deploya este componente
